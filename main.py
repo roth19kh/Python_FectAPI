@@ -22,7 +22,7 @@ try:
             table.append(
                 [
                     item["id"],
-                    stringLimit(20, item["title"]),
+                    item["title"],
                     f"${item['price']:.2f}",
                     item["category"],
                     stringLimit(30, item["description"])
@@ -37,15 +37,19 @@ try:
 
 
         is_filter  = input("Do you want to filter products? (y/n): ")
+        while is_filter.lower() not in ["y"or"n"]:
+            is_filter = input("Do you want to filter products? (y/n): ")
         if is_filter.lower() == "y":
-            filter_option = int(input("Filter by 1.ID or 2.Category: "))
-            while filter_option not in [1, 2]:
-                filter_option = int(input("Filter by 1.ID or 2.Category: "))
+            filter_option = int(input("Filter by 1.ID or 2.Category 3.Title: "))
+            while filter_option not in [1, 2, 3]:
+                filter_option = int(input("Filter by 1.ID or 2.Category 3.Title: "))
                 #filter
             if filter_option == 1:
                 filter_string = input("Enter product ID:")
-            else:
+            elif filter_option == 2:
                 filter_string = input("Enter product Category:")
+            else:
+                filter_string = input("Enter product Title:")
 
             filter_result = []
             filter_result_row = []
@@ -61,7 +65,7 @@ try:
                             item["category"],
                             stringLimit(30, item["description"])
                         ])
-                else:
+                elif filter_option == 2:
                     #fl category
                     if item['category'] == filter_string:
                         # filter_result.append(item)
@@ -72,8 +76,39 @@ try:
                             item["category"],
                             stringLimit(30, item["description"])
                         ])
+                else:
+                    #fl title
+                    if item['title'] == filter_string:
+                        # filter_result.append(item)
+                        filter_result_row.append([
+                            item["id"],
+                            stringLimit(20, item["title"]),
+                            f"${item['price']:.2f}",
+                            item["category"],
+                            stringLimit(30, item["description"])
+                        ])
             print (tabulate(filter_result_row,["ID", "Title", "Price","Category", "Description"], tablefmt="grid"))
                 # print(filter_result)
+            see_product_options = input("Do you want to see product details? (y/n): ")
+            while see_product_options  not in ["y", "n"]:
+                see_product_options  = input("Do you want to see product details? (y/n): ")
+            if see_product_options  == "y":
+                see_product_details = input("Enter product ID:")
+                for item in filter_result_row:
+                    if int(item[0]) == int(see_product_details):
+                        for detail_data in data:
+                            if detail_data["id"] == int(see_product_details):
+                                print("-----------------------------------------------")
+                                print("Product Details:")
+                                print(f"ID: {detail_data['id']}")
+                                print(f"Title: {detail_data['title']}")
+                                print(f"Price: ${detail_data['price']:.2f}")
+                                print(f"Category: {detail_data['category']}")
+                                print(f"Description: {detail_data['description']}")
+                                print("Image",detail_data['image'])
+                                break
+            else:
+                pass
         else:
             pass
 
