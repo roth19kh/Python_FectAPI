@@ -1,9 +1,8 @@
 Need to install venv vai command 
-# for Macbook
-python3 -m venv .venv
-# for window
-py -m venv .venv
-# Python_FectAPI
+for Macbook
+# python3 -m venv .venv
+for window
+# py -m venv .venv
 Need to install resuests via this command
 # pip install requests
 Need to install tabulate via thi command
