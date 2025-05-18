@@ -1,4 +1,4 @@
-Need to install venv vai command 
+Need to install venv vai command.
 for Macbook
 # python3 -m venv .venv
 for window
